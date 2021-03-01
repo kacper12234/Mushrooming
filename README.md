@@ -1,3 +1,3 @@
 # Mushrooming
 A mobile app for mushroom pickers written in Kotlin. Share places where you found mushrooms.
-!["Screenshot"](screenshot.png?raw=true)
+<img src="screenshot.png" width="300px" alt="screenshot"/>
