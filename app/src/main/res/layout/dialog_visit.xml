@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+<variable
+    name="model"
+    type="com.kacper.mushrooming.view.main.dialog.VisitDialogViewModel" />
+    </data>
+
+
+<LinearLayout android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/prompt_state"
+        android:inputType="text"
+        android:text="@={model.visitModel.state}"
+        app:error="@{model.visitModel.stateError}"/>
+    <EditText
+        android:id="@+id/count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/prompt_amount"
+        android:inputType="number"
+        android:text="@={model.visitModel.count}"
+        app:error="@{model.visitModel.countError}"/>
+</LinearLayout>
+</layout>
