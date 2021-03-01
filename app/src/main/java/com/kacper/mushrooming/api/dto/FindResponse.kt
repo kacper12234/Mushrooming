@@ -12,7 +12,8 @@ class FindResponse(val id: Long,
                    createdDate: String,
                    val visits: MutableList<VisitResponse>) {
 
-    private val createdDate = formatDate(createdDate)
+    private var createdDate = createdDate
+    get() = formatDate(field)
 
     override fun toString(): String {
         val lastVisit: String

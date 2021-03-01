@@ -12,7 +12,8 @@ class VisitResponse(
         private val count: Int,
         visitedAt: String)
 {
-    val visitedAt = formatDate(visitedAt)
+    var visitedAt = visitedAt
+    get() = formatDate(field)
 
     override fun toString(): String {
         return """${get(R.string.visit_author)} $user

@@ -88,19 +88,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync { googleMap ->
             mMap = googleMap
-            mMap.let{
-            tracker = LocationTracker(it, this)
-            it.moveCamera(CameraUpdateFactory.zoomTo(13f))
-            it.setMinZoomPreference(10f)
-            getSpots(it.projection.visibleRegion.latLngBounds)
-            it.setOnCameraIdleListener(tracker)
-            it.setInfoWindowAdapter(InfoWindowAdapter(this))
-            it.setOnInfoWindowClickListener { marker ->
-                VisitsDialog(visitsToString((marker.tag as FindResponse).visits)).show(
-                    supportFragmentManager,
-                    "Visits"
-                )
-            }}
+            mMap.let {
+                it.moveCamera(CameraUpdateFactory.zoomTo(13f))
+                tracker = LocationTracker(it, this)
+                it.setMinZoomPreference(10f)
+                it.setOnCameraIdleListener(tracker)
+                it.setInfoWindowAdapter(InfoWindowAdapter(this))
+                it.setOnInfoWindowClickListener { marker ->
+                    VisitsDialog(visitsToString((marker.tag as FindResponse).visits)).show(
+                        supportFragmentManager,
+                        "Visits"
+                    )
+                }
+            }
             launchMyLocation(true)
         }
     }
@@ -196,13 +196,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun checkVisit(loc: LatLng?) {
-        if (supportFragmentManager.findFragmentByTag("Visit") == null && finds.isNotEmpty()) {
-            getFindInRange(loc)?.let { find ->
-                if (find.visits
-                        .none { visit -> visit.userId == authenticationResponse!!.id }
-                ) VisitDialog(controller, find.id).show(supportFragmentManager, "Visit")
+            if (supportFragmentManager.findFragmentByTag("Visit")==null && finds.isNotEmpty()) {
+                getFindInRange(loc)?.let { find ->
+                    if (find.visits.none { visit -> visit.userId == authenticationResponse!!.id }
+                    ) VisitDialog(controller, find.id).show(supportFragmentManager, "Visit")
+                }
             }
-        }
     }
 
     private val isServiceRunning: Boolean

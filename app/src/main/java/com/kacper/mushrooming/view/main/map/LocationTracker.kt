@@ -26,7 +26,8 @@ class LocationTracker(private val mMap: GoogleMap, private val activity: MainAct
             if (result.lastLocation != null)
                 location = LatLng(result.lastLocation.latitude, result.lastLocation.longitude)
             if (mMap.projection.visibleRegion.latLngBounds.contains(location) && prev != location
-                || !::prev.isInitialized) {
+                || !::prev.isInitialized
+            ) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
                 activity.checkVisit(location)
             }
@@ -43,10 +44,8 @@ class LocationTracker(private val mMap: GoogleMap, private val activity: MainAct
     override fun onCameraIdle() {
         stop = mMap.projection.visibleRegion.latLngBounds
         if ((!start.contains(stop.northeast) || !start.contains(stop.southwest))
-            && (getDistance(start.northeast, stop.northeast) || getDistance(
-                start.southwest,
-                stop.southwest
-            ))
+            && (getDistance(start.northeast, stop.northeast) ||
+                    getDistance(start.southwest, stop.southwest))
         ) {
             if (!start.contains(stop.northeast) && !start.contains(stop.southwest)) {
                 start = stop
