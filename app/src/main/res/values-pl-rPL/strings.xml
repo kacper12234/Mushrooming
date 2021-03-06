@@ -17,7 +17,7 @@
     <string name="passwords_match_fail">Hasła nie pasują</string>
     <string name="login_failed">Błąd logowania</string>
     <string name="login_failed_user">Złe dane logowania</string>
-    <string name="login_failed_server">Błąd logowania z powodu nieaktywności serwera, ponowne logowanie za $d</string>
+    <string name="login_failed_server">Błąd logowania z powodu nieaktywności serwera, ponowne logowanie za %d</string>
     <string name="nav_header_title">Grzybobranie</string>
     <string name="app_name">Grzybobranie</string>
     <string name="action_settings">Ustawienia</string>
@@ -38,7 +38,7 @@
     <string name="find_createdAt">Dodane:</string>
     <string name="find_creator">Grzybiarz:</string>
     <string name="find_lastState">Ostatni stan:</string>
-    <string name="find_lastVisit">Ostatnio odwiedził/a:</string>
+    <string name="find_lastVisit">Ostatnio odwiedzono:</string>
     <string name="find_click">Kliknij, aby zobaczyć wizyty</string>
     <string name="prompt_amount">Ilość</string>
     <string name="prompt_state">Stan grzybowiska</string>

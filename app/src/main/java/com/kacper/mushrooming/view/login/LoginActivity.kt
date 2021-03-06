@@ -69,8 +69,8 @@ class LoginActivity : AppCompatActivity(), LoginInterface {
     }
 
 
-    private fun setupBindings(){
-        val activityBinding : ActivityLoginBinding = DataBindingUtil.setContentView(
+    private fun setupBindings() {
+        val activityBinding: ActivityLoginBinding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_login
         )
@@ -78,23 +78,27 @@ class LoginActivity : AppCompatActivity(), LoginInterface {
         activityBinding.model = loginViewModel
     }
 
-    private fun setupRegisterClick(){
-        loginViewModel.registerClick.observe(this,{
-        val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-        startActivity(intent)})
+    private fun setupRegisterClick() {
+        loginViewModel.registerClick.observe(this, {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        })
     }
 
     private fun setupButtonClick() {
-        loginViewModel.buttonClick.observe(this,
-            {
-                loginViewModel.loginModel.formVisible = View.INVISIBLE
-                controller.login(it.login,it.password, this)})
+        loginViewModel.buttonClick.observe(
+            this
+        ) {
+            loginViewModel.loginModel.formVisible = View.INVISIBLE
+            controller.login(it.login, it.password, this)
+        }
     }
 
     override fun login(login: String?) {
         intent = Intent(this@LoginActivity, MainActivity::class.java)
         startActivity(intent)
-        Toast.makeText(this@LoginActivity, getString(R.string.welcome) + login, Toast.LENGTH_LONG).show()
+        Toast.makeText(this@LoginActivity, getString(R.string.welcome) + login, Toast.LENGTH_LONG)
+            .show()
     }
 
     override fun storeCred(
@@ -139,10 +143,10 @@ class LoginActivity : AppCompatActivity(), LoginInterface {
 
             override fun run() {
                 runOnUiThread {
-                    snackbar.setText(String.format(getString(R.string.login_failed_server),time))
+                    snackbar.setText(getString(R.string.login_failed_server, time))
                 }
                 if (!snackbar.isShown) snackbar.show()
-                time -= 1
+                time--
                 if (time == 0) {
                     snackbar.dismiss()
                     cancel()
@@ -151,29 +155,29 @@ class LoginActivity : AppCompatActivity(), LoginInterface {
         }, 0, 1000)
     }
 
-   private fun checkCache(){
-       if (intent.getBooleanExtra("logout", false)) {
-           preferences.edit().clear().apply()
-           controller.resetTask()
-       } else {
-           val login = preferences.getString("login", null)
-           if (login != null) {
-               val expiresAt = Instant.parse(preferences.getString("expireAt", null))
-               println(expiresAt.toString())
-               loginViewModel.loginModel.formVisible = View.INVISIBLE
-               if (expiresAt.isAfter(Instant.now())) {
-                   val refreshToken = preferences.getString("refreshToken", null)
-                   val sessionId = preferences.getString("JSESSIONID", null)
-                   controller!!.reconnect(login, refreshToken!!, sessionId!!, this)
-               } else {
-                   val password = preferences.getString("password", null)
-                   controller!!.login(login, password!!, this)
-               }
-           }
-       }
+    private fun checkCache() {
+        if (intent.getBooleanExtra("logout", false)) {
+            preferences.edit().clear().apply()
+            controller.resetTask()
+        } else {
+            val login = preferences.getString("login", null)
+            if (login != null) {
+                val expiresAt = Instant.parse(preferences.getString("expireAt", null))
+                println(expiresAt.toString())
+                loginViewModel.loginModel.formVisible = View.INVISIBLE
+                if (expiresAt.isAfter(Instant.now())) {
+                    val refreshToken = preferences.getString("refreshToken", null)
+                    val sessionId = preferences.getString("JSESSIONID", null)
+                    controller.reconnect(login, refreshToken!!, sessionId!!, this)
+                } else {
+                    val password = preferences.getString("password", null)
+                    controller.login(login, password!!, this)
+                }
+            }
+        }
     }
 
-    private fun requestPermissions(){
+    private fun requestPermissions() {
         requestPermissions(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -190,7 +194,6 @@ class LoginActivity : AppCompatActivity(), LoginInterface {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED) {
             Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_LONG).show()
             requestPermissions()
-        }
-        else checkCache()
+        } else checkCache()
     }
 }

@@ -24,7 +24,7 @@
     <string name="passwords_match_fail">Passwords not match</string>
     <string name="login_failed">Login failed</string>
     <string name="login_failed_user">Login failed due to incorrect credentials</string>
-    <string name="login_failed_server">Login failed due to server inactivity, trying to log in again within $d</string>
+    <string name="login_failed_server">Login failed due to server inactivity, trying to log in again within %d</string>
     <string name="title_activity_maps" translatable="false">Map</string>
     <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
